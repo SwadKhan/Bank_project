@@ -36,7 +36,7 @@
     </global-exceptions>
 
     <global-forwards>
-        <forward name="success"  path="/index.html"/>
+        <forward name="success"  path="/main.html"/>
         
     </global-forwards>
     
@@ -46,8 +46,8 @@
         <action path="/Welcome" forward="/welcomeStruts.jsp"/>
         <action path="/loginAction" name="LoginActionBean" scope="request" type="Login.LoginAction">
             <!--<forward name="success" path="/newjsp.jsp"></forward>-->
-             <forward name="success" path="/index.html"></forward>
-             <forward name="failure" path="/Login.html"></forward>
+             <forward name="success" path="/main.html"></forward>
+             <forward name="failure" path="/index.html"></forward>
         </action>
     </action-mappings>
     
