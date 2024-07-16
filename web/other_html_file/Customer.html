@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>tabs demo</title>
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"
+        integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">    
+
+    </head>
+
+    <body>
+        <main>
+            <div id="tabs" style="background-color: #397785 ">
+                <div>
+                    <h5>Welcome to customer services</h5>
+                </div>
+                <div id="customers">
+                    <!-- Making the Widget UI -->
+                    <div class="widget-container">
+
+                        <span id="widget" class="widget-view">
+                            <div onclick="widgetNav(fragment - 1)"> <span>Details</span> <span>1</span> </div>
+                            <div onclick="widgetNav(fragment - 2)"> <span>Enroll Biometric</span> <span>2</span> </div>
+                            <div onclick="widgetNav(fragment - 3)"> <span>Contact</span> <span>3</span> </div>
+                            <div onclick="widgetNav(4)"> <span>Additional Info</span> <span>4</span> </div>
+
+                        </span>
+
+                    </div>
+
+
+
+                </div>
+
+
+
+                <div style="background-color: #397785;width: 100%; float: left; margin-top: 70px;">
+
+                    <div id="fragment-1" class="tabcontent">
+                        <h2> Form 1</h2>
+                        <p>Fill the form and submit it.</p>
+                        <div style="margin:20px 0;"></div>
+                        <div class="easyui-panel" title="New Topic" style="width:100%;max-width:400px;padding:30px 60px;">
+                            <form id="f1" method="post">
+                                <div style="margin-bottom:20px">
+                                    <input class="easyui-textbox" name="name" style="width:100%"
+                                           data-options="label:'Name:',required:true" placeholder="Enter Name">
+                                </div>
+                                <div style="margin-bottom:20px">
+                                    <input class="easyui-textbox" name="email" style="width:100%"
+                                           data-options="label:'Email:',required:true,validType:'email'"
+                                           placeholder="Enter email">
+                                </div>
+                                <div style="margin-bottom:20px">
+                                    <input class="easyui-textbox" name="address" style="width:100%"
+                                           data-options="label:'Subject:',required:true" placeholder="Enter Address">
+                                </div>
+                                <div style="margin-bottom:20px">
+                                    <select class="easyui-combobox" name="type" label="type" style="width:100%">
+                                        <option value="bg">Birth ID</option>
+                                        <option value="ar">NID</option>
+                                        <option value="ca">Passport ID</option>
+                                    </select>
+                                </div>
+                            </form>
+                            <div style="text-align:center;padding:5px 0">
+                                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()"
+                                   style="width:80px">Submit</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()"
+                                   style="width:80px">Clear</a>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                    <div id="fragment-2" class="tabcontent">
+                        <h2> Form 2</h2>
+                        <p>Fill the form and submit it.</p>
+                        <div style="margin:20px 0;"></div>
+                        <div class="easyui-panel" title="New Topic" style="width:100%;max-width:400px;padding:30px 60px;">
+                            <form id="f2" method="post">
+                                <div style="margin-bottom:20px">
+                                    <input class="easyui-textbox" name="name" style="width:100%"
+                                           data-options="label:'Name:',required:true" placeholder="Enter Name">
+                                </div>
+                                <div style="margin-bottom:20px">
+                                    <input class="easyui-textbox" name="email" style="width:100%"
+                                           data-options="label:'Email:',required:true,validType:'email'"
+                                           placeholder="Enter email">
+                                </div>
+                                <div style="margin-bottom:20px">
+                                    <input class="easyui-textbox" name="amount" style="width:100%" type="number"
+                                           data-options="label:'Subject:',required:true" placeholder="Enter Amount">
+                                </div>
+                                <div id="divPortion" style="display: none;margin-bottom:20px">
+                                    <!-- Hidden div portion content here... -->
+                                    <input class="easyui-textbox" name="quantity" style="width:100%" type="number"
+                                           data-options="label:'Subject:',required:true" placeholder="Enter number of account">
+                                    This portion will be shown after the logic is fulfilled.
+                                </div>
+
+
+                            </form>
+                            <div style="text-align:center;padding:5px 0">
+                                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()"
+                                   style="width:80px">Submit</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()"
+                                   style="width:80px">Clear</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="fragment-3" class="tabcontent">
+                        <h2> Form 3</h2>
+                        <p>Fill the form and submit it.</p>
+                        <div style="margin:20px 0;"></div>
+                        <div class="easyui-panel" title="New Topic" style="width:100%;max-width:400px;padding:30px 60px;">
+                            <form id="f3" method="post">
+                                <div style="margin-bottom:20px">
+                                    <input class="easyui-textbox" name="name" style="width:100%"
+                                           data-options="label:'Name:',required:true" placeholder="Enter Name">
+                                </div>
+                                <div style="margin-bottom:20px">
+                                    <input class="easyui-textbox" name="email" style="width:100%"
+                                           data-options="label:'Email:',required:true,validType:'email'"
+                                           placeholder="Enter email">
+                                </div>
+                                <div style="margin-bottom:20px">
+                                    <input class="easyui-textbox" name="address" style="width:100%"
+                                           data-options="label:'Subject:',required:true" placeholder="Enter Address">
+                                </div>
+
+                                <div style="margin-bottom:20px">
+                                    <select class="easyui-combobox" name="language" label="Language" style="width:100%">
+
+                                        <option value="en" selected="selected">Phone</option>
+                                        <option value="et">Email</option>
+
+
+                                    </select>
+                                </div>
+                            </form>
+                            <div style="text-align:center;padding:5px 0">
+                                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()"
+                                   style="width:80px">Submit</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()"
+                                   style="width:80px">Clear</a>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div>
+                        <!-- ... Existing tabs content ... -->
+
+                        <!-- Add New Fragment Button -->
+                        <button id="addNewFragmentBtn" onclick="addNewFragment()">Add New Fragment</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+        <script src="/js_file/customer.js"></script>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+
+    </body>
+
+</html>

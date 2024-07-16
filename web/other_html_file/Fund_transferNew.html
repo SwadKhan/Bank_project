@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three Column Page</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"
+    integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .column {
+            flex: 0 0 calc(33.33% - 20px);
+            margin-bottom: 20px;
+            background-color: #f0f0f0;
+            padding: 20px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .column img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .column h2 {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .column p {
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        #tabs {
+            background-color: #397785;
+            width: 100%;
+            float: left;
+            margin-top: 20px;
+        }
+
+        #tabs ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #tabs li {
+            float: left;
+            margin-right: 10px;
+        }
+
+        #tabs li a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        #fragment-1,
+        #fragment-2,
+        #fragment-3 {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            max-width: 80%;
+        }
+
+        #result,
+        #result2 {
+            display: none;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            max-width: 80%;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        #closeButton,
+        #closeButton2,
+        #print,
+        #print2 {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="tabs">
+        <ul>
+            <li><a href="#fragment-1"><span>Transaction</span></a></li>
+            <li><a href="#fragment-2"><span>Transaction Details</span></a></li>
+            <li><a href="#fragment-3"><span>Generate FAC Tokens</span></a></li>
+        </ul>
+
+        <div id="fragment-1" class="container">
+            <div class="row">
+                <div class="col-md-8 gap-3">
+                    <h2>Transaction</h2>
+                    <form id="f1" method="post">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="SenderAccountNo" class="form-label">Sender Account number</label>
+                                <input type="text" name="SenderAccountNo" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="ReceiverAccountNo" class="form-label">Receiver Account number</label>
+                                <input type="text" name="ReceiverAccountNo" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="SendingAmount" class="form-label">Sending Amount:</label>
+                                <input type="text" name="SendingAmount" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="password" class="form-label">Password:</label>
+                                <input type="text" name="Password" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" id="submitButton" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4 gap-4">
+                    <div class="row mb-3">
+                        <h2>Customer's Details</h2>
+                        <div class="col-md-12">
+                            <label for="CustomerAccountId" class="form-label">Customer's Account ID</label>
+                            <!-- Input for Customer's Account ID can go here -->
+                        </div>
+                    </div>
+                    <!-- Add any other fields related to the second part of the form here -->
+                </div>
+            </div>
+            <div id="result">
+                <p>Here all the details related to the entered Customer ID.</p>
+            </div>
+            <button type="button" id="closeButton" class="btn btn-secondary">Close</button>
+            <button type="button" id="print2" class="btn btn-secondary">Print</button>
+        </div>
+
+        <div id="fragment-2" class="container">
+            <h2>Form 2</h2>
+            <p>Fill the form and submit it.</p>
+            <div style="margin:20px 0;"></div>
+            <div class="easyui-panel" title="New Topic" style="width:100%;max-width:400px;padding:30px 60px;">
+                <form id="f2" method="post">
+                    <div style="margin-bottom:20px">
+                        <input class="easyui-textbox" name="account_Id" style="width:100%;color: white"
+                               data-options="label:'Name:',required:true" placeholder="Enter Account ID: ">
+                    </div>
+                    <button type="button" id="submitButton2" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div id="result2">
+                <p>Here all the details related to entered Customer ID.</p>
+            </div>
+            <button type="button" id="closeButton2" class="btn btn-secondary">Close</button>
+            <button type="button" id="print" class="btn btn-secondary">Print</button>
+        </div>
+
+        <div id="fragment-3" class="container">
+            <h1>Three Column Page</h1>
+            <div class="row">
+                <div class="column">
+                    <img src="image1.jpg" alt="Image 1">
+                    <h2>Column 1</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="column">
+                    <img src="image2.jpg" alt="Image 2">
+                    <h2>Column 2</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#tabs").tabs();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $("#submitButton").click(function () {
+                var SenderAccountNo = $("input[name='SenderAccountNo']").val();
+                var ReceiverAccountNo = $("input[name='ReceiverAccountNo']").val();
+                var SendingAmount = $("input[name='SendingAmount']").val();
+                var Password = $("input[name='Password']").val();
+                $.ajax({
+                    type: "POST",
+                    url: "Fundtransfer", // Your servlet URL
+                    data: {
+                        SenderAccountNo: SenderAccountNo,
+                        ReceiverAccountNo: ReceiverAccountNo,
+                        SendingAmount: SendingAmount,
+                        Password: Password
+                    },
+                    success: function (response) {
+                        $("#result").html(response);
+                        $("#f1").trigger("reset");
+                        $("#f1").hide();
+                        $("#result").show();
+                        $("#closeButton").show();
+                        $("#print2").show();
+                        $("#print2").click(function () {
+                            // Show the printable content and hide other elements
+                            $("#print2").hide();
+                            $("#closeButton").hide();
+                            // Create a new window for printing
+                            var printWindow = window.open('', '', 'width=600,height=600');
+                            printWindow.document.open();
+                            printWindow.document.write('<html><head><title>Print</title></head><body>');
+                            var Width = 600;
+                            var height = 600;
+                            // Extract the content of #result from the original page
+                            var resultContent = $("#result").html();
+                            // Wrap the content in a container div with a maximum width
+                            var wrappedContent = '<div style="width:' + Width + 'px;height:' + height + 'px;">' + resultContent + '</div>';
+                            printWindow.document.write(wrappedContent);
+                            // Calculate and set the height of the new window based on the content
+                            var contentHeight = $("#result").height();
+                            printWindow.resizeTo(screen.width, contentHeight);
+                            // Close the new window after printing
+                            printWindow.document.close();
+                            printWindow.print();
+                            printWindow.close();
+                            $("#result").show();
+                            $("#closeButton").show();
+                            $("#print2").show();
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        $("#result").text("Error: " + error);
+                    }
+                });
+            });
+            $("#closeButton").click(function () {
+                // Show the original form
+                $("#f1").show();
+                // Hide the additional content
+                $("#result").hide();
+                $("#closeButton").hide();
+                $("#print2").hide();
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $("#submitButton2").click(function () {
+                var AccountNo = $("input[name='account_Id']").val();
+                $.ajax({
+                    type: "GET",
+                    url: "Fundtransfer2", // Your servlet URL
+                    data: {
+                        AccountNo: AccountNo
+                    },
+                    success: function (response) {
+                        $("#result2").html(response);
+                        $("#f2").trigger("reset");
+                        $("#f2").hide();
+                        $("#result2").show();
+                        $("#closeButton2").show();
+                        $("#print").show();
+                        $("#print").click(function () {
+                            // Show the printable content and hide other elements
+                            $("#print").hide();
+                            $("#closeButton2").hide();
+                            // Create a new window for printing
+                            var printWindow = window.open('', '', 'width=100%,height=auto');
+                            printWindow.document.open();
+                            printWindow.document.write('<html><head><title>Print</title></head><body>');
+                            // Extract the content of #result from the original page
+                            var resultContent = $("#result2").html();
+                            printWindow.document.write(resultContent);
+                            // Calculate and set the height of the new window based on the content
+                            var contentHeight = $("#result2").height();
+                            printWindow.resizeTo(screen.width, contentHeight);
+                            // Close the new window after printing
+                            printWindow.document.close();
+                            printWindow.print();
+                            printWindow.close();
+                            $("#result2").show();
+                            $("#closeButton2").show();
+                            $("#print").show();
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        $("#result2").text("Error: " + error);
+                    }
+                });
+            });
+            $("#closeButton2").click(function () {
+                // Show the original form
+                $("#f2").show();
+                // Hide the additional content
+                $("#result2").hide();
+                $("#closeButton2").hide();
+                $("#print").hide();
+            });
+        });
+    </script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

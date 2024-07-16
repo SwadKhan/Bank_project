@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Pages in Tabs</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"
+        integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</head>
+
+<body>
+    <div class="container mt-5">
+        <!-- Tab container -->
+        <ul class="nav nav-tabs" id="tabLinks">
+            <!-- Default page tab -->
+            <li class="nav-item">
+                <a class="nav-link active" data-page="page1.html" data-level="1">Page 1</a>
+            </li>
+        </ul>
+
+        <!-- Tab content -->
+        <div class="tab-content" id="tabContent">
+            <!-- Default page iframe -->
+            <iframe src="/other_html_file/page1.html" class="tab-pane fade show active" id="page1"></iframe>
+        </div>
+    </div>
+
+<!--    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+    <script>
+        $(document).ready(function () {
+            // Load the default page in the iframe
+            loadPage('/other_html_file/page1.html', 1);
+
+            // Handle form submission in the default page
+            $('#page1').on('load', function () {
+                $(this).contents().find('#form1').on('submit', function (e) {
+                    e.preventDefault();
+
+                    // Save form data to local storage
+                    const formData = $(this).serializeArray();
+                    localStorage.setItem('page1Data', JSON.stringify(formData));
+
+                    // Load the new page in the iframe
+                    loadPage('/other_html_file/page2.html', 2);
+                });
+            });
+        });
+
+        // Function to load a new page in the iframe and add a new tab
+        function loadPage(pageUrl, level) {
+            const $iframe = $('<iframe>', {
+                src: pageUrl,
+                class: 'tab-pane fade',
+                id: 'page' + level
+            });
+
+            const $tabLink = $('<a>', {
+                class: 'nav-link',
+                'data-page': pageUrl,
+                'data-level': level,
+                text: 'Page ' + level
+            });
+
+            $tabLink.on('click', function () {
+                const pageUrl = $(this).data('page');
+                const level = $(this).data('level');
+                loadPage(pageUrl, level);
+            });
+
+            const $tab = $('<li>', { class: 'nav-item' }).append($tabLink);
+
+            // Remove previously shown tab
+            $('#tabLinks li').removeClass('active');
+            $('#tabContent iframe').removeClass('show active');
+
+            // Add the new tab and load the page in the iframe
+            $('#tabLinks').append($tab);
+            $('#tabContent').append($iframe);
+
+            $tab.addClass('active');
+            $iframe.addClass('show active');
+        }
+    </script>
+    
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

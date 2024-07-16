@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"
+        integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    </head>
+
+    <body>
+
+
+        <div class="container">
+            <span  class="text-center mb-4">Personal Balance Information Inquiry</span>
+            <div class="row" >
+                <div class="col-md-8 gap-3" style="flex: 0 0 calc(63.33% - 10px); background-color: #fff; padding:20px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0,0,0,0.3); max-width: 60%;  height: auto"> <!-- First Part - Transaction -->
+
+                    <form id="f5" method="post">
+                        <div class="row mb-3">
+                            <span  style="padding: 15px 25px; font-size: large; font-weight: 550; background-color: rgba(122, 179, 245, 0.2); border-bottom: 2px solid rgb(184, 185, 185);">
+                                Balance Inquiry
+                            </span>
+                            <div class="col-md-6">
+                                <!--                                <label for="AccountNo" class="form-label">Customers Account number</label>-->
+                                <input type="text" name="AccountNo" class="form-control"  required placeholder="Customers Account number">
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" id="submitButton5" class="btn btn-primary">
+                                Submit
+                            </button>
+
+                        </div>
+
+                    </form>
+                </div>
+
+
+                <div class="col-md-4 gap-4" style="flex: 0 0 calc(37.33% - 10px); background-color: #fff; padding:20px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0,0,0,0.3); max-width: 100%; margin-left:20px ;height:auto"> <!-- Second Part - Customer's Account ID -->
+                    <div class="row mb-3">
+                        <span  style="padding: 15px 25px; font-size: large; font-weight: 550; background-color: rgba(122, 179, 245, 0.2); border-bottom: 2px solid rgb(184, 185, 185);">
+                            Customer's Details
+                        </span>
+
+                        <div class="col-md-12">
+                            <label for="CustomerAccountId" class="form-label" style="color: black">Please enter the Account ID</label>
+                            <div id="result5" style="display:none; background-color: #fff; padding: 20px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0,0,0,0.3); max-width: 80%; justify-content: center; align-items: center; height: auto">
+                                <p> Here all the details related to the entered Customer ID.</p>
+                            </div>
+                            <!-- Input for Customer's Account ID can go here -->
+                        </div>
+                        <button type="button" id="closeButton5" class="btn btn-secondary" style="display:none;">Close</button>
+                        <button type="button" id="print5" class="btn btn-secondary" style="display:none;">Print</button>
+                    </div>
+                    <!-- Add any other fields related to the second part of the form here -->
+                </div>
+
+               
+            </div>
+
+
+        </div>
+
+
+        <script>
+
+
+            $(document).ready(function () {
+
+                $("#submitButton5").click(function () {
+                    var AccountNo = $("input[name='AccountNo']").val();
+
+
+                    $.ajax({
+                        type: "GET",
+                        url: "Balance_inquiry", // Your servlet URL
+                        data: {
+                            AccountNo: AccountNo
+                        },
+                        success: function (response) {
+                            $("#result5").html(response);
+
+//                             var formData = JSON.parse(localStorage.getItem('formData'));
+//                delete formData['CustomerDetails.html']['f3']; // Clear tab 1 data
+//                localStorage.setItem('formData', JSON.stringify(formData)); // Update local storage
+
+
+                            $("#f5").trigger("reset");
+                            // $("#f1").hide();
+                            $("#result5").show();
+                            $("#closeButton5").show();
+                        
+                            $("#print5").show();
+
+                            $("#print5").click(function () {
+                                // Show the printable content and hide other elements
+                                // $("#f1").hide();
+                                $("#print5").hide();
+                                $("#closeButton5").hide();
+
+                                // Create a new window for printing
+
+                                var printWindow = window.open('', '', 'width=600,height=600');
+                                printWindow.document.open();
+                                printWindow.document.write('<html><head><title>Print</title></head><body>');
+
+
+                                var Width = 600;
+                                var height = 600;
+                                // Extract the content of #result from the original page
+                                var resultContent = $("#result5").html();
+
+                                // Wrap the content in a container div with a maximum width
+                                var wrappedContent = '<div style="width:' + Width + 'px" "height:' + height + 'px;">' + resultContent + '</div>';
+
+                                printWindow.document.write(wrappedContent);
+
+                                // Calculate and set the height of the new window based on the content
+                                //                                var contentHeight = $("#result").height();
+                                //                                printWindow.resizeTo(screen.width, contentHeight);
+
+                                // Close the new window after printing
+                                printWindow.document.close();
+                                printWindow.print();
+                                printWindow.close();
+                                $("#result5").show();
+                                $("#closeButton5").show();
+                                $("#print5").show();
+                            });
+
+
+                        },
+                        error: function (xhr, status, error) {
+                            $("#result5").text("Error: " + error);
+                        }
+                    });
+                });
+                $("#closeButton5").click(function () {
+                    // Show the original form
+                    $("#f5").show();
+                    // Hide the additional content
+                    $("#result5").hide();
+                    $("#closeButton5").hide();
+                    $("#print5").hide();
+                });
+
+            });
+        </script>
+
+     
+
+
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+
+
+    </body>
+
+</html>

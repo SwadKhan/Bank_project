@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Demo</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h2>Demo</h2>
+        <!--    <form action="/login.do" method="POST" >-->
+        <form>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br>
+
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" required><br>
+            <input type="hidden" name="customData" value="">
+
+<!--            <textarea id="w3review" name="w3review" rows="4" cols="50">At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.</textarea>-->
+
+            <button id="submitButton" onclick="onclickbutton()" type="button"> submit</button>
+        </form>
+
+
+        <script>
+
+                function getFieldsFromc1() {
+                    var s = document.forms[0].customData.value;
+                    
+                    var s1 = new Array();
+                    s1 = s.split('~');
+                    console.log("s1: " + s1);
+                    var s1Length = s1.length;
+                    var s2 = new Object();
+
+
+                    for (var s3 = 1; s3 < s1Length; s3++) {
+                        var s4 = s1[s3].split('|');
+                        console.log("s4: " + s4);
+                        var s5 = s4[0];
+                        console.log("s5: " + s5);
+                        var length = s4.length;
+                        var c1 = new Object();
+                        for (var c2 = 1; c2 < length; c2++) {
+                            var d1 = s4[c2].split('=');
+                            console.log("d1: " + d1);
+                            if (d1.length >= 2) {
+                                var key = d1[0];
+                                d1.shift();
+                                var value = d1.join('=');
+                                c1[key] = value;
+                            }
+                        }
+                        s2[s5] = c1;
+
+                    }
+                    alert("s2: " + s2);
+                    return s2;
+                }
+
+
+
+                function setFieldsIncustomData() {
+                    var name = "p1";
+                    var s5 = "";
+                    var s = "";
+
+                    var s2 = new Object();
+                    var c1 = new Object();
+
+
+
+
+                    var sk1 = s2[name];
+
+                    for (var custKey in sk1) {
+                        c1[custKey] = sk1[custKey];
+                    }
+
+                    for (i = 0; i < arguments.length; i++) {
+                        var fieldObj = eval("document.forms[0]." + arguments[i]);
+                        var fieldVal = "";
+                        console.log(fieldObj);
+                        if (fieldObj.type === 'checkbox') {
+                            if (fieldObj.checked)
+                                fieldVal = "on";
+                            else
+                                fieldVal = "";
+
+                        } else if (typeof (fieldObj.type) === "string") {
+                            fieldVal = fieldObj.value;
+                        } else
+                            fieldVal = getRadioValue(fieldObj);
+
+                        c1[arguments[i]] = fieldVal;
+                    }
+
+                    s2[name] = c1;
+                    for (var sk2 in s2) {
+                        var sk1 = s2[sk2];
+                        s5 = sk2;
+                        s = s + '~' + s5 + '|';
+                        for (var c1Key in sk1) {
+                            d1Key = c1Key;
+                            d1Value = sk1[c1Key];
+                            if (d1Value !== null) {
+                                s = s + d1Key + '=' + d1Value + '|';
+                            }
+                        }
+                    }
+                    document.forms[0].customData.value = s;
+//    console.log("print s: " + s)
+                    alert(s);
+                    // return s;
+
+                }
+
+                function onclickbutton() {
+
+                    console.log("here");
+
+                    setFieldsIncustomData("username", "location");
+                    s9 = getFieldsFromc1();
+                    console.log(s9);
+                }
+
+
+                function getRadioValue(obj) {
+                    var c = eval("document.forms[0]." + obj.id);
+                    var a = (typeof (c.length) === "undefined") ? false : true;
+                    if (!a) {
+                        return c.value;
+                    }
+                    var d = "";
+                    if (a && (typeof (c.type) === "undefiend")) {
+                        for (var b = 0; b < c.length; b++) {
+                            if (c[b].checked) {
+                                d = c[b].value;
+                                break
+                            }
+                        }
+                    }
+                    return d;
+                }
+
+
+
+
+        </script>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    </body>
+
+</html>
+

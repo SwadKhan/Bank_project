@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>tabs demo</title>
+ 
+         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-3.4.0.js" integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo=" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"
+        integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
+       
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+        <!--        <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+                <link rel="stylesheet" href="/resources/demos/style.css">
+                <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+                <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+
+            .row {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                margin-bottom: 20px;
+            }
+
+            .column {
+                flex: 0 0 calc(33.33% - 20px);
+                margin-bottom: 20px;
+                background-color: #f0f0f0;
+                padding: 20px;
+                box-sizing: border-box;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+            }
+
+            .column img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            .column h2 {
+                font-size: 18px;
+                margin-top: 10px;
+            }
+
+            .column p {
+                font-size: 14px;
+                margin-top: 10px;
+            }
+
+            #tabs {
+                background-color: #397785;
+                width: 100%;
+                float: left;
+                margin-top: 20px;
+            }
+            #fragment-4,
+            #fragment-5,
+            #fragment-6 {
+                background-color: #fff;
+                /*                padding: 5px;
+                                border-radius: 5px;
+                                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+                                max-width: 80%;*/
+            }
+
+            .button {
+                display: inline-block;
+                padding: 5px 5px;
+                font-size: 15px;
+                cursor: pointer;
+                text-align: center;
+                text-decoration: none;
+                outline: none;
+                color: #fff;
+                background-color: #81dccd;
+                border: none;
+                border-radius: 15px;
+                box-shadow: 0 2px #999;
+            }
+
+            .button:hover {
+                background-color: #75afea;
+            }
+
+            .button:active {
+                background-color: #3e8e41;
+                box-shadow: 0 5px #666;
+                transform: translateY(4px);
+            }
+            .text-center{
+                background-color: white;
+                align-content: flex-end;
+                padding: 5px 5px;
+            }
+
+
+            /* The container */
+            .container2 {
+                display: block;
+                position: relative;
+                padding-left: 35px;
+                margin-bottom: 12px;
+                cursor: pointer;
+                font-size: 22px;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            /* Hide the browser's default radio button */
+            .container2 input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+            }
+
+            /* Create a custom radio button */
+            .checkmark {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 25px;
+                width: 25px;
+                background-color: #eee;
+                border-radius: 50%;
+            }
+
+            /* On mouse-over, add a grey background color */
+            .container2:hover input ~ .checkmark {
+                background-color: #ccc;
+            }
+
+            /* When the radio button is checked, add a blue background */
+            .container2 input:checked ~ .checkmark {
+                background-color: #2196F3;
+            }
+
+            /* Create the indicator (the dot/circle - hidden when not checked) */
+            .checkmark:after {
+                content: "";
+                position: absolute;
+                display: none;
+            }
+
+            /* Show the indicator (dot/circle) when checked */
+            .container2 input:checked ~ .checkmark:after {
+                display: block;
+            }
+
+            /* Style the indicator (dot/circle) */
+            .container2 .checkmark:after {
+                top: 9px;
+                left: 9px;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: white;
+            }
+        </style>
+
+        <!--        <script>
+                    $(function () {
+                        $("#tabs1").tabs();
+                    });
+                </script>-->
+
+
+    </head>
+
+
+    <body>
+
+        <div id="tabs1" >
+            <ul>
+                <li><a href="#fragment-4"><span>Insurance Premium Connection </span></a></li>
+                <li><a href="#fragment-5"><span>Credit Card</span></a></li>
+                <li><a href="#fragment-6"><span>Distributor Bill Collections</span></a></li>
+                <li><a href="#fragment-7"><span>Institution Fee Payment</span></a></li>
+            </ul>
+
+
+
+            <div id="fragment-4" class="container" style=" background-color: #fff">
+                <div class="row" >
+
+                    <div class="col-md-8 gap-3" style="flex: 0 0 calc(67.33% - 10px); background-color: #fff; padding:20px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0,0,0,0.3); max-width: 70%;  height: auto"> <!-- First Part - Transaction -->
+                        <form id="f6" method="post">
+                            <div class="row mb-3">
+                                <span  style="padding: 15px 25px; font-size: large; font-weight: 550; background-color: rgba(122, 179, 245, 0.2); border-bottom: 2px solid rgb(184, 185, 185);">
+                                    Transaction Details
+                                </span>
+                                <div class="col-md-4">
+                                    <label>Payment Mode</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="container2">Cash
+                                        <input type="radio" checked="checked"  value="Cash" name="Radio">
+                                        <span class="checkmark"></span>
+                                    </label>  
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="container2">Account Pay
+                                        <input type="radio"  value="AccountPay" name="Radio">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <!--                        </div>-->
+
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <input type="text" name="PolicyNo" class="form-control" required placeholder="Policy No">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="MobileNo" class="form-control" required placeholder="Mobile No">
+                                    </div> 
+
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <input type="text" name="PurposeofPayment" class="form-control" required placeholder="PurposeofPayment">
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <input type="text" name="Amount" class="form-control" required placeholder="Amount">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <input type="text" name="TransactionParticular" class="form-control" required placeholder="Transaction Particular">
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <input type="text" name="TransactionRemarks" class="form-control" required placeholder="Transaction Remarks">
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button type="button" id="submitButton6" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+               
+                                <div id="result6" style="display:none; background-color: #fff; padding: 20px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0,0,0,0.3); max-width: 80%; justify-content: center; align-items: center; height: auto">
+                                    <p> Here all the details related to the entered Customer ID.</p>
+                                </div>
+                                <button type="button" id="closeButton6" class="btn btn-secondary" style="display:none;">Close</button>
+                                <button type="button" id="print6" class="btn btn-secondary" style="display:none;">Print</button>
+            </div>
+
+
+            <div id="fragment-5" class="container" style=" background-color: #fff">
+                <div class="row" >
+
+                    <div class="col-md-8 gap-3" style="flex: 0 0 calc(67.33% - 10px); background-color: #fff; padding:20px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0,0,0,0.3); max-width: 70%;  height: auto"> <!-- First Part - Transaction -->
+                        <form id="f7" method="post">
+                            <div class="row mb-3">
+                                <span  style="padding: 15px 25px; font-size: large; font-weight: 550; background-color: rgba(122, 179, 245, 0.2); border-bottom: 2px solid rgb(184, 185, 185);">
+                                    Credit Card
+                                </span>
+                                <div class="col-md-4">
+                                    <label>Payment Mode</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="container2">Cash
+                                        <input type="radio" checked="checked" name="radio">
+                                        <span class="checkmark"></span>
+                                    </label>  
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="container2">Account Pay
+                                        <input type="radio" name="radio">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <!--                        </div>-->
+
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <input type="text" name="CardNo" class="form-control" required placeholder="Card  No">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="CardHolderName" class="form-control" required placeholder="Card Holder Name">
+                                    </div> 
+
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <input type="text" name="MobileNo" class="form-control" required placeholder="Mobile No">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Payment Currency</label>
+                                        <input type="text" name="PaymentCurrency" class="form-control" value="BDT" >
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <input type="text" name="Amount" class="form-control" required placeholder="Amount">
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <input type="text" name="TransactionParticular" class="form-control" required placeholder="TransactionParticular">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-8">
+                                        <input type="text" name="TransactionRemarks" class="form-control" required placeholder="Transaction Remarks">  
+                                    </div>
+
+                                </div>
+                                <div class="text-center">
+                                    <button type="button" id="submitButton7" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="result7" style="display:none; background-color: #fff; padding: 20px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0,0,0,0.3); max-width: 80%; justify-content: center; align-items: center; height: auto">
+                    <p> Here all the details related to the entered Customer ID.</p>
+                </div>
+                <button type="button" id="closeButton7" class="btn btn-secondary" style="display:none;">Close</button>
+                <button type="button" id="print7" class="btn btn-secondary" style="display:none;">Print</button>
+            </div>
+
+
+            <div id="fragment-6" class="container" style=" background-color: #fff">
+                <div class="row" >
+
+                    <div class="col-md-8 gap-3" style="flex: 0 0 calc(67.33% - 10px); background-color: #fff; padding:20px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0,0,0,0.3); max-width: 70%;  height: auto"> <!-- First Part - Transaction -->
+                        <form id="f8" method="post">
+                            <div class="row mb-3">
+                                <span  style="padding: 15px 25px; font-size: large; font-weight: 550; background-color: rgba(122, 179, 245, 0.2); border-bottom: 2px solid rgb(184, 185, 185);">
+                                    Distributor Bill Collections
+                                </span>
+                                <div class="col-md-4">
+                                    <label>Payment Mode</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="container2">Cash
+                                        <input type="radio" checked="checked" name="radio">
+                                        <span class="checkmark"></span>
+                                    </label>  
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="container2">Account Pay
+                                        <input type="radio" name="radio">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <!--                        </div>-->
+
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <input type="text" name="DistributorID" class="form-control" required placeholder="Distributor Id">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="DistributorName" class="form-control" required placeholder="Distributor Name">
+                                    </div> 
+
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <input type="text" name="MobileNo" class="form-control" required placeholder="Mobile No">
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <input type="text" name="PaymentAmount" class="form-control"  required placeholder="Payment Amount" >
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">                
+                                    <div class="col-md-6">
+                                        <input type="text" name="TransactionParticular" class="form-control" required placeholder="TransactionParticular">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="TransactionRemarks" class="form-control" required placeholder="Transaction Remarks">  
+                                    </div>
+                                </div>
+
+                                <div class="text-center">
+                                    <button type="button" id="submitButton8" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="result3" style="display:none; background-color: #fff; padding: 20px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0,0,0,0.3); max-width: 80%; justify-content: center; align-items: center; height: auto">
+                    <p> Here all the details related to the entered Customer ID.</p>
+                </div>
+                <button type="button" id="closeButton8" class="btn btn-secondary" style="display:none;">Close</button>
+                <button type="button" id="print8" class="btn btn-secondary" style="display:none;">Print</button>
+            </div>
+
+            <div id="fragment-7" class="container" style=" background-color: #fff">
+                <div class="row" >
+
+                    <div class="col-md-8 gap-3" style="flex: 0 0 calc(67.33% - 10px); background-color: #fff; padding:20px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0,0,0,0.3); max-width: 70%;  height: auto"> <!-- First Part - Transaction -->
+                        <form id="f9" method="post">
+                            <div class="row mb-3">
+                                <span  style="padding: 15px 25px; font-size: large; font-weight: 550; background-color: rgba(122, 179, 245, 0.2); border-bottom: 2px solid rgb(184, 185, 185);">
+                                    Institutional fee payment
+                                </span>
+                                <div class="col-md-4">
+                                    <label>Payment Mode</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="container2">Cash
+                                        <input type="radio" checked="checked" name="radio">
+                                        <span class="checkmark"></span>
+                                    </label>  
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="container2">Account Pay
+                                        <input type="radio" name="radio">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <!--                        </div>-->
+
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <input type="text" name="MobileNo" class="form-control" required placeholder="Mobile No">
+                                    </div>
+
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <input type="text" name="StudentName" class="form-control" required placeholder="Student Name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="RollNo" class="form-control" required placeholder="Roll No">
+                                    </div> 
+
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        <input type="text" name="Class" class="form-control" required placeholder="Class">
+                                    </div>
+                                    <div class="col-md-4">
+
+                                        <input type="text" name="Section" class="form-control"  required placeholder="Section" >
+                                    </div>
+                                    <div class="col-md-4">
+
+                                        <input type="text" name="Session" class="form-control"  required placeholder="Session/Semester" >
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">                
+                                    <div class="col-md-6">
+                                        <input type="text" name="ExamFee" class="form-control" required placeholder="Exam fee">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="TuitionFee" class="form-control" required placeholder="Tuition Fee">  
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">                
+                                    <div class="col-md-6">
+                                        <input type="text" name="RegisterFee" class="form-control" required placeholder="Register Fee">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="MedicalFee" class="form-control" required placeholder="Medical Fee">  
+                                    </div>
+                                </div>
+                                <div class="row mb-3">                
+                                    <div class="col-md-6">
+                                        <input type="text" name="LibraryFee" class="form-control" required placeholder="Library Fee">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="AdmissionFee" class="form-control" required placeholder="Admission Fee">  
+                                    </div>
+                                </div>
+                                <div class="row mb-3">                
+                                    <div class="col-md-6">
+                                        <input type="text" name="TransportationFee" class="form-control" required placeholder="Transportation Fee">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="DevelopmentFee" class="form-control" required placeholder="Development Fee">  
+                                    </div>
+                                </div>
+                                <div class="row mb-3">                
+                                    <div class="col-md-6">
+                                        <input type="text" name="StationaryFee" class="form-control" required placeholder="Stationary Fee">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="SecurityFee" class="form-control" required placeholder="security Fee">  
+                                    </div>
+                                </div>
+                                <div class="row mb-3">                
+                                    <div class="col-md-6">
+                                        <input type="text" name="LateFee" class="form-control" required placeholder="Late Fee">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="RecreationFee" class="form-control" required placeholder="Recreation Fee">  
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">                
+                                    <div class="col-md-6">
+                                        <input type="text" name="LabFee" class="form-control" required placeholder="Lab Fee">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="SportFee" class="form-control" required placeholder="Sport Fee">  
+                                    </div>
+                                </div>
+                                <div class="row mb-3">                
+                                    <div class="col-md-6">
+                                        <input type="text" name="WelfareFee" class="form-control" required placeholder="welfare Fee">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="CulturalFee" class="form-control" required placeholder="Culture Fee">  
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">                
+                                    <div class="col-md-6">
+                                        <input type="text" name="Billmonth" class="form-control" required placeholder="Bill Month">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="Billyear" class="form-control" required placeholder="Bill Year">  
+                                    </div>
+                                </div>
+                                <div class="row mb-3">                
+                                    <div class="col-md-6">
+                                        <input type="text" name="TotalPayementAmount" class="form-control" required placeholder="Total Payement Amount">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="ReciptNumber" class="form-control" required placeholder="ReciptNumber">  
+                                    </div>
+                                </div>
+                                <div class="row mb-3">                
+                                    <div class="col-md-6">
+                                        <input type="text" name="TransactionParticular" class="form-control" required placeholder="TransactionParticular">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="TransactionRemarks" class="form-control" required placeholder="Transaction Remarks">  
+                                    </div>
+                                </div>
+
+
+                                <div class="text-center">
+                                    <button type="button" id="submitButton9" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="result9" style="display:none; background-color: #fff; padding: 20px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0,0,0,0.3); max-width: 80%; justify-content: center; align-items: center; height: auto">
+                    <p> Here all the details related to the entered Customer ID.</p>
+                </div>
+                <button type="button" id="closeButton9" class="btn btn-secondary" style="display:none;">Close</button>
+                <button type="button" id="print9" class="btn btn-secondary" style="display:none;">Print</button>
+            </div>
+
+
+
+
+
+            <div class="text-center">
+                <button type="button" id="back" class="button">Back</button>
+                <button type="button" id="reset" class="button">Reset</button>
+                <button type="button" id="previous" class="button">Previous</button>
+            </div>    
+
+        </div>
+
+
+
+        <script>
+            (function ($) {
+                $(document).ready(function () {
+                    $("#tabs1").tabs();
+
+                });
+            })(jQuery);
+        </script>
+        <!--<script src="js_file/tabshow.js"></script>-->
+        <!--        <script>
+                    $(function () {
+                        $("#tabs").tabs();
+                    });
+                </script>-->
+
+        <script>
+
+            $(document).ready(function () {
+                var loadedTabs = JSON.parse(localStorage.getItem('loadedTabs'));
+                let index = -1;
+                for (let m = 0; m < loadedTabs.length; m++) {
+                    const pageData = loadedTabs[m][0];
+                    if (pageData.pageUrl === 'CustomerDetails.html') {
+                        index = m;
+                        break;
+                    }
+                }
+                // var quantity = $('input[name="quantity"]').attr('quantity');
+
+                // Check if there is any saved form data in local storage for the specific tab
+                var formData = JSON.parse(localStorage.getItem('formData')) || {};
+                var currentTabContentId = 'CustomerDetails.html';
+                // console.log(currentTabContentId) // Variable to store the currently active tab content ID
+
+                // Load the saved form data into the form fields
+                $('form [name]').each(function () {
+                    var fieldName = $(this).attr('name');
+                    var formid = $(this).closest('form').attr('id');
+                    //var formid = inputId;
+                    if (!formData[currentTabContentId]) {
+                        formData[currentTabContentId] = {};
+                    }
+                    if (!formData[currentTabContentId][formid]) {
+                        formData[currentTabContentId][formid] = {};
+                    }
+                    // Set the value of the input field based on the form data
+                    if (formData[currentTabContentId][formid][fieldName]) {
+                        $(this).val(formData[currentTabContentId][formid][fieldName]);
+                    }
+                });
+
+                // Add event listeners to form fields to save data to local storage on input change
+                $('form [name]').on('input', function () {
+                    //var formid = $(this).attr('id');
+                    var formid = $(this).closest('form').attr('id');
+                    var fieldName = $(this).attr('name');
+                    var fieldValue = $(this).val();
+                    //var quantity = $(this).attr('quantity');
+
+                    // Update the form data for the current tab content ID
+                    if (!formData[currentTabContentId]) {
+                        formData[currentTabContentId] = {};
+                    }
+                    if (!formData[currentTabContentId][formid]) {
+                        formData[currentTabContentId][formid] = {};
+                    }
+                    formData[currentTabContentId][formid][fieldName] = fieldValue;
+
+                    if (fieldName === "amount") {
+                        //if (fieldName == "amount") {
+                        if (formData[currentTabContentId][formid][fieldName] > 4000) {
+                            $('#divPortion').show(); // Show the div portion
+                            localStorage.setItem('formData', JSON.stringify(formData));
+                        } else {
+                            $('#divPortion').hide(); // Hide the div portion
+                            formData[currentTabContentId][formid]["quantity"] = 0;
+                            localStorage.setItem('formData', JSON.stringify(formData));
+
+                        }
+                    }
+                    // Save the updated form data to local storage
+                    else {
+                        localStorage.setItem('formData', JSON.stringify(formData));
+                    }
+
+
+
+
+                });
+
+
+
+
+            });
+
+
+        </script>
+
+        <script>
+            //tab4
+
+            $(document).ready(function () {
+                $("#submitButton6").click(function () {
+                    var Amount = $("input[name='Amount']").val();
+                    var MobileNo = $("input[name='MobileNo']").val();
+                    var PolicyNo = $("input[name='PolicyNo']").val();
+                    var PurposeofPayment = $("input[name='PurposeofPayment']").val();
+                    var TransactionParticular = $("input[name='TransactionParticular']").val();
+                    var TransactionRemarks = $("input[name='TransactionRemarks']").val();
+                    var Radio= $("input[Name='Radio']").val();
+                    
+
+                    $.ajax({
+                        type: "POST",
+                        url: "FormServlet", // Your servlet URL
+                        data: {
+                            Amount: Amount,
+                            MobileNo: MobileNo,
+                            PolicyNo: PolicyNo,
+                            PurposeofPayment: PurposeofPayment,
+                            TransactionParticular: TransactionParticular,
+                            TransactionRemarks: TransactionRemarks,
+                            Radio: Radio        // id: id
+                        },
+                        success: function (response) {
+                            $("#result6").html(response);
+
+                            var formData = JSON.parse(localStorage.getItem('formData'));
+                            delete formData['CustomerDetails.html']['f1']; // Clear tab 1 data
+                            localStorage.setItem('formData', JSON.stringify(formData)); // Update local storage
+
+
+                            $("#f6").trigger("reset");
+                            $("#f6").hide();
+                            $("#result6").show();
+                            $("#closeButton6").show();
+                            $("#print6").show();
+                            
+                             $("#print6").click(function () {
+                                // Show the printable content and hide other elements
+                                // $("#f1").hide();
+                                $("#print6").hide();
+                                $("#closeButton6").hide();
+
+                                // Create a new window for printing
+
+                                var printWindow = window.open('', '', 'width=600,height=600');
+                                printWindow.document.open();
+                                printWindow.document.write('<html><head><title>Print</title></head><body>');
+
+
+                                var Width = 600;
+                                var height = 600;
+                                // Extract the content of #result from the original page
+                                var resultContent = $("#result6").html();
+
+                                // Wrap the content in a container div with a maximum width
+                                var wrappedContent = '<div style="width:' + Width + 'px" "height:' + height + 'px;">' + resultContent + '</div>';
+
+                                printWindow.document.write(wrappedContent);
+
+                                // Calculate and set the height of the new window based on the content
+                                //                                var contentHeight = $("#result").height();
+                                //                                printWindow.resizeTo(screen.width, contentHeight);
+
+                                // Close the new window after printing
+                                printWindow.document.close();
+                                printWindow.print();
+                                printWindow.close();
+                                $("#result6").show();
+                                $("#closeButton6").show();
+                                $("#print6").show();
+                            });
+                            
+                        },
+                        error: function (xhr, status, error) {
+                            $("#result6").text("Error: " + error);
+                        }
+                    });
+
+                });
+
+              $("#closeButton6").click(function () {
+                    // Show the original form
+                    $("#f6").show();
+                    // Hide the additional content
+                    $("#result6").hide();
+                    $("#closeButton6").hide();
+                    $("#print6").hide();
+                });
+
+            });
+        </script>
+
+
+<!--        <script>
+            //tab2
+
+            $(document).ready(function () {
+                $("#submitButton2").click(function () {
+                    console.log("Submit button 2 clicked!"); // Debug statement
+                    var name = $("input[name='name2']").val();
+                    var email = $("input[name='email2']").val();
+                    var amount = $("input[name='amount']").val();
+                    var quantity = $("input[name='quantity']").val();// You can set the ID value here
+
+                    $.ajax({
+                        type: "POST",
+                        url: "CustomerFormtwo", //  servlet URL
+                        data: {
+                            name: name,
+                            email: email,
+                            amount: amount,
+                            quantity: quantity
+                                    // id: id
+                        },
+                        success: function (response) {
+                            $("#result").text(response);
+
+                            var formData = JSON.parse(localStorage.getItem('formData'));
+                            delete formData['CustomerDetails.html']['f2']; // Clear tab 1 data
+                            localStorage.setItem('formData', JSON.stringify(formData)); // Update local storage
+
+
+                            $("#f2").trigger("reset"); // Reset form fields
+                            $("#f2").hide();
+                            $("#additionalInfo2").show();
+                        },
+                        error: function (xhr, status, error) {
+                            $("#result").text("Error: " + error);
+                        }
+                    });
+
+                });
+
+                $("#closeButton2").click(function () {
+                    // Show the original form
+                    $("#f2").show();
+                    // Hide the additional content
+                    $("#additionalInfo2").hide();
+                });
+            });
+
+        </script>
+
+
+        <script>
+            //tab3
+
+            $(document).ready(function () {
+
+                $("#submitButton3").click(function () {
+                    var name = $("input[name='name3']").val();
+                    var email = $("input[name='email3']").val();
+                    var address = $("input[name='address3']").val();
+                    //                            var cw = $("select[name='cw']").val();
+                    var cw = document.getElementById('cw').value;
+
+
+                    $.ajax({
+                        type: "POST",
+                        url: "FormServletTab3", // Your servlet URL
+                        data: {
+                            name: name,
+                            email: email,
+                            address: address,
+                            cw: cw
+                        },
+                        success: function (response) {
+                            $("#result").text(response);
+
+                            var formData = JSON.parse(localStorage.getItem('formData'));
+                            delete formData['CustomerDetails.html']['f3']; // Clear tab 1 data
+                            localStorage.setItem('formData', JSON.stringify(formData)); // Update local storage
+
+
+                            $("#f3").trigger("reset");
+                            $("#f3").hide();
+                            $("#additionalInfo3").show();
+                        },
+                        error: function (xhr, status, error) {
+                            $("#result").text("Error: " + error);
+                        }
+                    });
+                });
+                $("#closeButton3").click(function () {
+                    // Show the original form
+                    $("#f3").show();
+                    // Hide the additional content
+                    $("#additionalInfo3").hide();
+                });
+
+            });
+        </script>-->
+
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+
+    </body>
+
+</html>
